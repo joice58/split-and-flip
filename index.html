@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium architectural preview featuring scroll-triggered card split and double Y-flip transitions.">
+    <title>Ayatana Residences - Premium Double Y-Flip</title>
+    <!-- Google Fonts: Outfit for premium modern aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css?v=19">
+</head>
+<body>
+
+    <!-- PINNED SCROLL ANIMATION SECTION -->
+    <main class="animation-container" id="pinned-trigger">
+        <div class="pinned-section">
+            
+            <!-- Background ambient glows -->
+            <div class="ambient-glow glow-1"></div>
+            <div class="ambient-glow glow-2"></div>
+            
+            <!-- Floating Scroll Info Hint -->
+            <div class="scroll-hint" id="scroll-hint">
+                <span class="mouse"><span class="wheel"></span></span>
+            </div>
+
+            <!-- Cards Container -->
+            <div class="cards-container" id="cards-container">
+                
+                <!-- CARD 1 -->
+                <div class="card card-1" id="card-1">
+                    <div class="card-inner" id="inner-1">
+                        <!-- Front Face: Banner Slice & details layer (initially hidden) -->
+                        <div class="card-face face-front">
+                            <div class="img-banner" style="background-image: url('assets/piece_1.jpg');"></div>
+                            <div class="details-content">
+                                <h3 class="card-title">Aratt Celebration Square</h3>
+                                <p class="card-desc">A 7 acre central plaza designed for events and gatherings.</p>
+                            </div>
+                        </div>
+                        <!-- Back Face: Amenity Image -->
+                        <div class="card-face face-back" style="background-image: url('assets/card1.jpg');"></div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="card card-2" id="card-2">
+                    <div class="card-inner" id="inner-2">
+                        <!-- Front Face: Banner Slice & details layer (initially hidden) -->
+                        <div class="card-face face-front">
+                            <div class="img-banner" style="background-image: url('assets/piece_2.jpg');"></div>
+                            <div class="details-content">
+                                <h3 class="card-title">High Street Retail</h3>
+                                <p class="card-desc">Pedestrian-first plazas and curated retail experiences.</p>
+                            </div>
+                        </div>
+                        <!-- Back Face: Amenity Image -->
+                        <div class="card-face face-back" style="background-image: url('assets/card2.jpg');"></div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="card card-3" id="card-3">
+                    <div class="card-inner" id="inner-3">
+                        <!-- Front Face: Banner Slice & details layer (initially hidden) -->
+                        <div class="card-face face-front">
+                            <div class="img-banner" style="background-image: url('assets/piece_3.jpg');"></div>
+                            <div class="details-content">
+                                <h3 class="card-title">The F and B Street</h3>
+                                <p class="card-desc">Inspired by global food lanes and built for post-work life.</p>
+                            </div>
+                        </div>
+                        <!-- Back Face: Amenity Image -->
+                        <div class="card-face face-back" style="background-image: url('assets/card3.jpg');"></div>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="card card-4" id="card-4">
+                    <div class="card-inner" id="inner-4">
+                        <!-- Front Face: Banner Slice & details layer (initially hidden) -->
+                        <div class="card-face face-front">
+                            <div class="img-banner" style="background-image: url('assets/piece_4.jpg');"></div>
+                            <div class="details-content">
+                                <h3 class="card-title">JW Marriott Hotel</h3>
+                                <p class="card-desc">Premium hospitality with convention facilities.</p>
+                            </div>
+                        </div>
+                        <!-- Back Face: Amenity Image -->
+                        <div class="card-face face-back" style="background-image: url('assets/card4.jpg');"></div>
+                    </div>
+                </div>
+
+                <!-- CARD 5 -->
+                <div class="card card-5" id="card-5">
+                    <div class="card-inner" id="inner-5">
+                        <!-- Front Face: Banner Slice & details layer (initially hidden) -->
+                        <div class="card-face face-front">
+                            <div class="img-banner" style="background-image: url('assets/piece_5.jpg');"></div>
+                            <div class="details-content">
+                                <h3 class="card-title">Sports Facilities</h3>
+                                <p class="card-desc">Multi-sport facilities supporting wellness.</p>
+                            </div>
+                        </div>
+                        <!-- Back Face: Amenity Image -->
+                        <div class="card-face face-back" style="background-image: url('assets/card5.jpg');"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Info Panel -->
+            <div class="bottom-info" id="bottom-info">
+                <div class="info-left">
+                    At Aratt One World, culture is planned into the master plan to bring people together.
+                </div>
+                <div class="info-right">
+                    WHERE THE CITY GATHERS
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- GSAP & ScrollTrigger Local Libraries -->
+    <script src="gsap.min.js"></script>
+    <script src="ScrollTrigger.min.js"></script>
+    <!-- Main JS script -->
+    <script src="index.js?v=19"></script>
+</body>
+</html>
