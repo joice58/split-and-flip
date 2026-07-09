@@ -268,26 +268,35 @@ body {
 /* Responsive adjustment for Mobile and Tablets */
 @media (max-width: 768px) {
     .cards-container {
-        flex-direction: column;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        width: 100vw;
+        display: flex;
+        position: absolute;
+        width: 90vw;
+        height: 60vh;
+        top: 15vh;
+        left: 5vw;
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+        perspective: 2000px;
     }
     
     .card {
         position: absolute;
-        width: 100vw;
-        height: 20vh; /* Exact 20% height initially */
-        left: 0 !important;
+        height: 25vh;
+        width: 18vw;
+        top: 15vh;
+        z-index: 4;
+        cursor: default;
+        perspective: 2000px;
+        will-change: transform;
     }
     
-    /* Contiguous stack initially on mobile */
-    .card-1 { top: 0vh; }
-    .card-2 { top: 20vh; }
-    .card-3 { top: 40vh; }
-    .card-4 { top: 60vh; }
-    .card-5 { top: 80vh; }
+    /* Symmetrical stacking on mobile initially */
+    .card-1 { left: 0vw; z-index: 6; }
+    .card-2 { left: 18vw; z-index: 7; }
+    .card-3 { left: 36vw; z-index: 8; }
+    .card-4 { left: 54vw; z-index: 7; }
+    .card-5 { left: 72vw; z-index: 6; }
 
     .bottom-info {
         display: none; /* Hide bottom panel on mobile viewport for clean layout */
