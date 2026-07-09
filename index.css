@@ -1,0 +1,295 @@
+/* CSS Reset and General Variables */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #e7e7e7;
+    --gold: #c5a059;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --font-outfit: 'Outfit', sans-serif;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-outfit);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: scroll; /* Force vertical scrollbar for ScrollTrigger */
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+}
+
+/* Pinned Scroll Animation Section */
+.animation-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: var(--bg-color);
+}
+
+.pinned-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ambient glow lights behind elements */
+.ambient-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: 0;
+    opacity: 0.06;
+    pointer-events: none;
+}
+
+.glow-1 {
+    background-color: var(--gold);
+    top: -150px;
+    left: -150px;
+}
+
+.glow-2 {
+    background-color: var(--gold);
+    bottom: -150px;
+    right: -150px;
+}
+
+/* Floating Scroll hint */
+.scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.mouse {
+    width: 22px;
+    height: 36px;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    position: relative;
+}
+
+.wheel {
+    width: 3px;
+    height: 6px;
+    background-color: var(--gold);
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheel 2s infinite ease-in-out;
+}
+
+@keyframes scrollWheel {
+    0% { top: 6px; opacity: 0; }
+    30% { opacity: 1; }
+    100% { top: 18px; opacity: 0; }
+}
+
+/* Cards Wrapper Grid - Matches Video Proportions */
+.cards-container {
+    display: flex;
+    position: absolute;
+    width: 88vw;
+    height: 65vh;
+    top: 14vh;
+    left: 6vw;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    perspective: 2500px;
+}
+
+/* Card Container Setup */
+.card {
+    position: absolute;
+    height: 65vh;
+    width: 17.6vw; /* Exact 20% of 88vw container width initially (no gap) */
+    top: 0;
+    z-index: 4;
+    cursor: default;
+    perspective: 2500px;
+    will-change: transform;
+    transform-origin: 50% 100%;
+}
+
+/* 3D container element rotated by GSAP */
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    border-radius: 0px; /* Sharp corners, rounded via JS */
+}
+
+/* Card Face wrapper */
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Front Face (initially transparent, shows banner slices) */
+.face-front {
+    z-index: 3;
+    transform: rotateY(0deg);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image Banner slice layer */
+.img-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 4;
+    opacity: 1;
+}
+
+/* Details Text Content (placed inside face-front, initially hidden) */
+.details-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    text-align: center;
+    opacity: 0; /* Hidden initially */
+    z-index: 5;
+}
+
+.card-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.card-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Back Face (holds amenity images) */
+.face-back {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotateY(180deg); /* Pre-rotated for Y-flip */
+    z-index: 2;
+}
+
+/* Positioning absolute lefts and symmetrical z-index stacking */
+.card-1 { left: 0vw; z-index: 6; }
+.card-2 { left: 17.6vw; z-index: 7; }
+.card-3 { left: 35.2vw; z-index: 8; }
+.card-4 { left: 52.8vw; z-index: 7; }
+.card-5 { left: 70.4vw; z-index: 6; }
+
+/* Bottom Info Panel (exactly like in first video.mp4) */
+.bottom-info {
+    position: absolute;
+    bottom: 30px;
+    left: 6vw;
+    width: 88vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 5;
+    color: #1a1a1a;
+    opacity: 1;
+}
+
+.info-left {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555555;
+    max-width: 450px;
+    font-weight: 400;
+}
+
+.info-right {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: #1a1a1a;
+}
+
+/* Responsive adjustment for Mobile and Tablets */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        width: 100vw;
+    }
+    
+    .card {
+        position: absolute;
+        width: 100vw;
+        height: 20vh; /* Exact 20% height initially */
+        left: 0 !important;
+    }
+    
+    /* Contiguous stack initially on mobile */
+    .card-1 { top: 0vh; }
+    .card-2 { top: 20vh; }
+    .card-3 { top: 40vh; }
+    .card-4 { top: 60vh; }
+    .card-5 { top: 80vh; }
+
+    .bottom-info {
+        display: none; /* Hide bottom panel on mobile viewport for clean layout */
+    }
+}
