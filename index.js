@@ -78,12 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // --- Phase 2: First 3D Y-Axis Flip & Initial Fan-Out (0.3 -> 0.45) ---
             tl.to(".card-inner", { rotationY: 180, ease: "none", duration: 0.15 }, 0.3);
 
-            // Start fanning out: rotate Z-axis and apply initial vertical/horizontal shifts to align bottoms along the arc
-            tl.to("#card-1", { rotation: -5.5, y: "1.55vh", x: "1.7vw", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-2", { rotation: -2.75, y: "0.39vh", x: "0.8vw", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-4", { rotation: 2.75, y: "0.39vh", x: "-0.8vw", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-5", { rotation: 5.5, y: "1.55vh", x: "-1.7vw", ease: "none", duration: 0.15 }, 0.3);
+            // Start fanning out: rotate Z-axis and apply initial vertical/horizontal/height shifts
+            tl.to("#card-1", { rotation: -5.5, y: "1.55vh", x: "1.7vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-2", { rotation: -2.75, y: "0.39vh", x: "0.8vw", top: "-1vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", top: "-1.5vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-4", { rotation: 2.75, y: "0.39vh", x: "-0.8vw", top: "-1vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-5", { rotation: 5.5, y: "1.55vh", x: "-1.7vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.3);
 
             // --- Content Swap (Exactly at midpoint = 0.375) ---
             tl.set(".face-front", { backgroundColor: "#ffffff" }, 0.375)
@@ -93,12 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // --- Phase 3: Second 3D Y-Axis Flip & Symmetrical bottom-closed Fan-Out (0.65 -> 0.80) ---
             tl.to(".card-inner", { rotationY: 360, ease: "none", duration: 0.15 }, 0.65);
 
-            // Final fanned state: card bottom-centers align perfectly on a circular arc (radius = 170vw) with 0 gaps
-            tl.to("#card-1", { rotation: -11, y: "3.1vh", x: "3.4vw", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-2", { rotation: -5.5, y: "0.78vh", x: "1.6vw", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-4", { rotation: 5.5, y: "0.78vh", x: "-1.6vw", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-5", { rotation: 11, y: "3.1vh", x: "-3.4vw", ease: "none", duration: 0.15 }, 0.65);
+            // Final fanned state: card positions, sizes, and rotations align perfectly per user specs
+            tl.to("#card-1", { rotation: -11, y: "3.1vh", x: "3.4vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.65)
+              .to("#card-2", { rotation: -5.5, y: "0.78vh", x: "1.6vw", top: "-2vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
+              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", top: "-3vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
+              .to("#card-4", { rotation: 5.5, y: "0.78vh", x: "-1.6vw", top: "-2vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
+              .to("#card-5", { rotation: 11, y: "3.1vh", x: "-3.4vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.65);
 
         } else {
             // ==========================================
