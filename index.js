@@ -17,12 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Reset details and banner content opacities
         gsap.set(".details-content", { opacity: 0 });
+        gsap.set(".img-details-bg", { opacity: 0 }); // Hidden initially
         gsap.set(".img-banner", { opacity: 1 });
         gsap.set(".face-front", { backgroundColor: "transparent" });
 
+        // Initialize shadows to transparent to prevent early render leaks
+        gsap.set([".face-front", ".face-back"], { boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)" });
+
         if (isDesktop) {
             // Initialize Desktop Contiguous States
-            gsap.set(".card", { top: "0vh", height: "65vh" });
+            gsap.set(".card", { top: "0vh", height: "58vh" });
             gsap.set(".card-1", { left: "0vw", width: "17.6vw" });
             gsap.set(".card-2", { left: "17.6vw", width: "17.6vw" });
             gsap.set(".card-3", { left: "35.2vw", width: "17.6vw" });
@@ -72,33 +76,34 @@ document.addEventListener("DOMContentLoaded", () => {
               .to("#card-4", { left: "53.7vw", ease: "none", duration: 0.2 }, 0.1)
               .to("#card-5", { left: "71.6vw", ease: "none", duration: 0.2 }, 0.1);
 
-            // Animate card corner rounding as it splits
-            tl.to([".card-inner", ".card-face"], { borderRadius: "12px", ease: "none", duration: 0.2 }, 0.1);
+            // Animate card corner rounding to 24px as it splits (curvier corners)
+            tl.to([".card-inner", ".card-face"], { borderRadius: "24px", ease: "none", duration: 0.2 }, 0.1);
 
-            // --- Phase 2: First 3D Y-Axis Flip & Initial Fan-Out (0.3 -> 0.45) ---
+            // Animate face-front box-shadow to project leftward once split begins (no clipping)
+            tl.to(".face-front", { boxShadow: "-12px 15px 30px rgba(0, 0, 0, 0.55)", ease: "none", duration: 0.2 }, 0.1);
+
+            // --- Phase 2: First 3D Y-Axis Flip & Full Symmetrical Fan-Out (0.3 -> 0.45) ---
             tl.to(".card-inner", { rotationY: 180, ease: "none", duration: 0.15 }, 0.3);
 
-            // Start fanning out: rotate Z-axis and apply initial vertical/horizontal/height shifts
-            tl.to("#card-1", { rotation: -5.5, y: "1.55vh", x: "1.7vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-2", { rotation: -2.75, y: "0.39vh", x: "0.8vw", top: "-1vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", top: "-1.5vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-4", { rotation: 2.75, y: "0.39vh", x: "-0.8vw", top: "-1vh", height: "64.5vh", ease: "none", duration: 0.15 }, 0.3)
-              .to("#card-5", { rotation: 5.5, y: "1.55vh", x: "-1.7vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.3);
+            // Fan out cards completely to their final positions during Flip 1
+            tl.to("#card-1", { rotation: -15, y: "4.1vh", x: "5.5vw", top: "0vh", height: "58vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-2", { rotation: -7.5, y: "1.0vh", x: "2.6vw", top: "-2.5vh", height: "57vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", top: "-4vh", height: "57vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-4", { rotation: 7.5, y: "1.0vh", x: "-2.6vw", top: "-2.5vh", height: "57vh", ease: "none", duration: 0.15 }, 0.3)
+              .to("#card-5", { rotation: 15, y: "4.1vh", x: "-5.5vw", top: "0vh", height: "58vh", ease: "none", duration: 0.15 }, 0.3);
+
+            // Animate face-back box-shadow to project leftward (compensated negative offset) during Flip 1
+            tl.to(".face-back", { boxShadow: "-12px 15px 30px rgba(0, 0, 0, 0.55)", ease: "none", duration: 0.15 }, 0.3);
 
             // --- Content Swap (Exactly at midpoint = 0.375) ---
-            tl.set(".face-front", { backgroundColor: "#ffffff" }, 0.375)
+            tl.set(".face-front", { backgroundColor: "transparent" }, 0.375)
               .set(".img-banner", { opacity: 0 }, 0.375)
+              .set(".img-details-bg", { opacity: 1 }, 0.375) // Reveal details fanned background photo at midpoint
               .set(".details-content", { opacity: 1 }, 0.375);
 
-            // --- Phase 3: Second 3D Y-Axis Flip & Symmetrical bottom-closed Fan-Out (0.65 -> 0.80) ---
+            // --- Phase 3: Second 3D Y-Axis Flip (0.65 -> 0.80) ---
+            // Keep the same fanning positions, just execute the Y-spin to reveal details
             tl.to(".card-inner", { rotationY: 360, ease: "none", duration: 0.15 }, 0.65);
-
-            // Final fanned state: card positions, sizes, and rotations align perfectly per user specs
-            tl.to("#card-1", { rotation: -11, y: "3.1vh", x: "3.4vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-2", { rotation: -5.5, y: "0.78vh", x: "1.6vw", top: "-2vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-3", { rotation: 0, y: "0vh", x: "0vw", top: "-3vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-4", { rotation: 5.5, y: "0.78vh", x: "-1.6vw", top: "-2vh", height: "64vh", ease: "none", duration: 0.15 }, 0.65)
-              .to("#card-5", { rotation: 11, y: "3.1vh", x: "-3.4vw", top: "0vh", height: "65vh", ease: "none", duration: 0.15 }, 0.65);
 
         } else {
             // ==========================================
@@ -114,14 +119,19 @@ document.addEventListener("DOMContentLoaded", () => {
               .to("#card-5", { top: "46vh", ease: "none", duration: 0.2 }, 0.1);
 
             // Round the corners on mobile split
-            tl.to([".card-inner", ".card-face"], { borderRadius: "10px", ease: "none", duration: 0.2 }, 0.1);
+            tl.to([".card-inner", ".card-face"], { borderRadius: "16px", ease: "none", duration: 0.2 }, 0.1);
+
+            // Animate soft bottom shadow for vertical list cards on split
+            tl.to(".face-front", { boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.45)", ease: "none", duration: 0.2 }, 0.1);
 
             // --- Phase 2: First Flip (0.3 -> 0.45) ---
             tl.to(".card-inner", { rotationY: 180, ease: "none", duration: 0.15 }, 0.3);
+            tl.to(".face-back", { boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.45)", ease: "none", duration: 0.15 }, 0.3);
 
             // Swapping content
-            tl.set(".face-front", { backgroundColor: "#ffffff" }, 0.375)
+            tl.set(".face-front", { backgroundColor: "transparent" }, 0.375)
               .set(".img-banner", { opacity: 0 }, 0.375)
+              .set(".img-details-bg", { opacity: 1 }, 0.375) // Reveal details bg on mobile midpoint
               .set(".details-content", { opacity: 1 }, 0.375);
 
             // --- Phase 3: Second Flip (0.65 -> 0.80) ---
